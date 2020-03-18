@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>anna</title>
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins|Open+Sans:400,600|Playfair+Display&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="main2.css" />
+
+    <script src="https://unpkg.com/feather-icons"></script>
+  </head>
+
+  <body>
+    <nav>
+      <div id="nav_links">
+        <a href="/">home</a>
+        <a href="/">about</a>
+        <a href="/">skills</a>
+        <a href="/">work</a>
+        <a href="/">contact</a>
+      </div>
+      <div id="nav_bio">
+        <!-- <div id="nav_name">anna qiu</div> -->
+        <div id="nav_name">anna</div>
+        <div id="nav_img">
+          <img src="anna.jpg" alt="anna.jpg" />
+        </div>
+      </div>
+    </nav>
+    <main>
+      <section>
+        <!-- <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia quae
+          distinctio temporibus dolor accusantium vero magni excepturi, vitae
+          cum optio sequi eaque libero maiores facilis molestiae placeat
+          laboriosam quibusdam pariatur.
+        </p> -->
+        <article id="bio">
+          <p id="name" class="section_title"><i data-feather="user"></i> Anna [Last Name]</p>
+          <p>Hello! I am currently an undergraduate student at <a href="https://www.cmu.edu/" target="_blank">Carnegie Mellon University</a> studying computer science, on track to graduate May 2023. I plan on concentrating in human-computer interaction or machine learning, though that may change as I learn and explore more.</p>
+        </article>
+        <article id="overview">
+          <p class="section_title"><i data-feather="bar-chart"></i> A Little Overview</p>
+          <div id="skills">
+            <div id="progress_bar"></div>
+            <div id="skill_html" class="skill" percent="90">HTML/CSS</div>
+            <div id="skill_c" class="skill" percent="75">C</div>
+            <div id="skill_sml" class="skill" percent="55">SML</div>
+            <div id="skill_java" class="skill" percent="50">Java</div>
+            <div id="skill_js" class="skill" percent="40">JavaScript</div>
+            <div id="skill_python" class="skill" percent="25">Python</div>
+            <div id="skill_r" class="skill" percent="10">R</div>
+          </div>
+
+          <p class="section_subtitle"><i data-feather="check-square"></i> Coursework</p>
+          <div id="courses">
+            <div class="course" course="15122">
+              <div class="course_title">Principles of Imperative Computation</div>
+              <div class="course_brief">
+                <p><i data-feather="chevron-right"></i> C</p>
+                <p><i data-feather="chevron-right"></i> Overview of correctness of code, data structures (stacks, queues, linked lists, unbounded arrays, hashtables, dictionaries, trees, priority queues, heaps), searches and sorts, and graphs.</p>
+              </div>
+            </div>
+            <div class="course" course="15151">
+              <div class="course_title">Mathematical Foundations for Computer Science</div>
+              <div class="course_brief">
+                <p><i data-feather="chevron-right"></i> Overview of foundational mathematical concepts including proofs, number theory, modular arithmetic, counting and countability, and probability.</p>
+              </div>
+            </div>
+            <div class="course" course="21241">
+              <div class="course_title">Matricies and Linear Transformations</div>
+              <div class="course_brief">
+                <p><i data-feather="chevron-right"></i> Covered complex numbers, real and complex vectors and matrices, row space and column space of a matrix, rank and nullity, solving linear systems by row reduction of a matrix, inverse matrices and determinants, change of basis, linear transformations, inner product of vectors, orthonormal bases and the Gram-Schmidt process, eigenvectors and eigenvalues, diagonalization of a matrix, and symmetric and orthogonal matrices with a focus on computer science applications. [From the course catalogue.]</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="section_subtitle"><i data-feather="archive"></i> Projects</p>
+          <div id="projects">
+            [A Work In Progress]
+          </div>
+        </article>
+        <article id="contact">
+          <p class="section_title"><i data-feather="message-square"></i> Contact</p>
+          <p>To find out more or get in contact with me, feel free to email me at <a href="mailto:hello@example.com">hello@example.com</a>.</p>
+        </article>
+      </section>
+      <aside>
+        <div id="sidebar_img">
+          <img src="anna.jpg" alt="anna.jpg">
+        </div>
+        <div id="sidebar_info">
+          <p><i data-feather="calendar"></i> 18</p>
+          <p><i data-feather="user"></i> she/her</p>
+          <p><i data-feather="map-pin"></i> Pittsburgh, PA</p>
+        </div>
+      </aside>
+    </main>
+
+    <script>
+      feather.replace();
+
+      const createElem = (selector, attr = {}, html = "") => {
+        let temp = document.createElement(selector);
+        for (a in attr) temp.setAttribute(a, attr[a]);
+        temp.innerHTML = html;
+        return temp;
+      }
+
+      const skills = document.querySelectorAll("div#skills .skill");
+      console.log(skills);
+      const skillsHsl = getComputedStyle(document.querySelector("section")).getPropertyValue("--progress-bar-hsl").match(/[0-9]{1,}/g);
+      Array.from(skills).forEach((s, i) => {
+        console.log(s);
+        skill = s.innerHTML;
+        s.innerHTML = "";
+        s.appendChild(createElem("div", {class: "bar", style: `--progress-bar: hsl(${skillsHsl[0]},${skillsHsl[1]}%,${100 - ((100 / (skills.length + 1)) * (i+1))}%); width: 0`}));
+        s.appendChild(createElem("div", {class: "skill_name", style: `left: 0; opacity: 0`}, skill));
+      });
+      setTimeout(() => {
+        Array.from(skills).forEach((s) => {
+          s.querySelector(".bar").style.width = `${s.getAttribute("percent")}%`;;
+          s.querySelector(".skill_name").style.left = `${s.getAttribute("percent")}%`;;
+          s.querySelector(".skill_name").style.opacity = 1;
+        });
+      }, 350);
+    </script>
+  </body>
+</html>
